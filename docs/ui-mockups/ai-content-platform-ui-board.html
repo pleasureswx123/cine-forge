@@ -6,20 +6,29 @@
   <title>AI 内容工业化平台 UI 关键节点画板</title>
   <style>
     :root {
-      --bg: #f4f1ea;
-      --ink: #17211f;
-      --muted: #6b716d;
-      --line: #d9d2c5;
-      --panel: #fffdf8;
-      --dark: #15201d;
-      --dark-2: #22302b;
-      --teal: #1f8a82;
-      --blue: #3267c8;
-      --amber: #d9902f;
-      --coral: #d76455;
-      --green: #3f8d5a;
-      --violet: #6957b8;
-      --shadow: 0 18px 48px rgba(38, 32, 22, .14);
+      --bg: #151827;
+      --ink: #f3f6ff;
+      --muted: #9aa3b7;
+      --line: #343851;
+      --panel: #232639;
+      --dark: #181b2c;
+      --dark-2: #262a40;
+      --teal: #95f044;
+      --teal-soft: rgba(149, 240, 68, .14);
+      --blue: #8ad9ff;
+      --blue-soft: rgba(138, 217, 255, .14);
+      --amber: #ffbd45;
+      --amber-soft: rgba(255, 189, 69, .16);
+      --coral: #ff624f;
+      --coral-soft: rgba(255, 98, 79, .15);
+      --green: #65f785;
+      --green-soft: rgba(101, 247, 133, .15);
+      --violet: #b28cff;
+      --violet-soft: rgba(178, 140, 255, .15);
+      --surface: #1f2235;
+      --surface-2: #292d44;
+      --surface-3: #30344d;
+      --shadow: 0 20px 54px rgba(0, 0, 0, .34);
       font-family: Inter, "Segoe UI", "PingFang SC", "Microsoft YaHei", Arial, sans-serif;
     }
 
@@ -27,8 +36,10 @@
     body {
       margin: 0;
       background:
-        linear-gradient(90deg, rgba(21,32,29,.035) 1px, transparent 1px),
-        linear-gradient(0deg, rgba(21,32,29,.035) 1px, transparent 1px),
+        radial-gradient(circle at 18% 10%, rgba(149, 240, 68, .08), transparent 28%),
+        radial-gradient(circle at 82% 16%, rgba(138, 217, 255, .08), transparent 30%),
+        linear-gradient(90deg, rgba(255,255,255,.028) 1px, transparent 1px),
+        linear-gradient(0deg, rgba(255,255,255,.028) 1px, transparent 1px),
         var(--bg);
       background-size: 28px 28px;
       color: var(--ink);
@@ -4803,6 +4814,759 @@
       justify-content: space-between;
       color: var(--muted);
       font-size: 10px;
+    }
+
+    /* Reference-tone dark theme: deep dashboard surfaces with vivid lime and amber accents. */
+    .intro, .principles, .screen, .app, .main, .topbar, .project-strip,
+    .steps, .right-panel, .panel, .card, .table, .editor, .media-box,
+    .library-tree, .library-main, .library-detail, .metric, .budget-card,
+    .call-list, .matrix-table, .matrix-note, .template-code, .preview-box,
+    .project-row, .field, .module-card, .task-detail, .task-param-group,
+    .task-metric, .task-list-head, .task-table, .task-drawer, .model-table,
+    .template-editor, .settings-panel, .permission-panel, .export-card {
+      background: var(--panel);
+      border-color: var(--line);
+      color: var(--ink);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, .18);
+    }
+
+    .screen {
+      background: #1b1e30;
+      border-color: #2c3048;
+    }
+
+    .app {
+      background: var(--surface);
+      border-color: #30344d;
+    }
+
+    .side {
+      background: #191c2d;
+      color: #eff5ff;
+      border-right: 1px solid rgba(255, 255, 255, .05);
+    }
+
+    .brand {
+      color: #f7fbff;
+    }
+
+    .mark {
+      background: linear-gradient(135deg, var(--teal), #67dfff);
+      box-shadow: 0 0 0 4px rgba(149, 240, 68, .08);
+    }
+
+    .nav div {
+      color: #9ca6bc;
+    }
+
+    .nav .active {
+      background: rgba(149, 240, 68, .12);
+      color: #f7fbff;
+      box-shadow: inset 3px 0 0 var(--teal);
+    }
+
+    .side-foot {
+      color: #8f98ad;
+      border-color: rgba(255, 255, 255, .08);
+    }
+
+    .main {
+      background: var(--surface);
+    }
+
+    .topbar {
+      background: #202337;
+      border-color: #30344d;
+    }
+
+    .project-strip {
+      background: #1d2033;
+      border-color: #30344d;
+    }
+
+    .intro, .principles {
+      background: linear-gradient(180deg, #24273b, #202337);
+      border-color: #343851;
+    }
+
+    .principle {
+      background: #292d44;
+      border-left-color: var(--teal);
+      color: var(--ink);
+    }
+
+    .chip, .phase, button, .btn, .tag, .pill, .task-filter-chip,
+    .template-pill, .matrix-tag, .status {
+      background: #2b3048;
+      border-color: #3b405d;
+      color: #dce5f8;
+    }
+
+    button, .btn {
+      box-shadow: none;
+    }
+
+    button:hover, .btn:hover {
+      border-color: rgba(149, 240, 68, .55);
+    }
+
+    .primary, .wizard-step.current span {
+      background: linear-gradient(135deg, #95f044, #69e37c);
+      border-color: #9df65a;
+      color: #101523;
+    }
+
+    .warn {
+      background: linear-gradient(135deg, #ffbd45, #ff8c35);
+      border-color: #ffbd45;
+      color: #151827;
+    }
+
+    .danger {
+      background: var(--coral-soft);
+      border-color: rgba(255, 98, 79, .5);
+      color: #ff9789;
+    }
+
+    .phase.done, .step.done, .status.ok, .task-scope-item.active,
+    .library-tree button.active, .template-item.active, .project-row.active {
+      background: var(--green-soft);
+      border-color: rgba(101, 247, 133, .48);
+      color: #9dffb2;
+    }
+
+    .phase.active, .step.current, .list-item.active, .library-tree button.active,
+    .template-item.active, .matrix-table tr.active td, .field.active,
+    .wizard-step.current, .task-row.active, .shot-card.active {
+      background: var(--teal-soft);
+      border-color: rgba(149, 240, 68, .55);
+      color: var(--ink);
+      box-shadow: inset 3px 0 0 var(--teal);
+    }
+
+    .status.run {
+      background: var(--blue-soft);
+      color: #a8e6ff;
+    }
+
+    .status.wait, .template-pill.wait {
+      background: var(--amber-soft);
+      color: #ffd384;
+    }
+
+    .status.fail {
+      background: var(--coral-soft);
+      color: #ff9b8e;
+    }
+
+    .metric, .field, .task-metric, .call-item, .task-row, .library-tree button,
+    .template-item, .variable, .asset-card, .shot-info, .model-actions button,
+    .permission-row, .setting-row {
+      background: var(--surface-2);
+      border-color: #3b405d;
+      color: var(--ink);
+    }
+
+    .right-panel, .panel, .card, .table, .editor, .media-box, .library-main,
+    .library-detail, .budget-card, .call-list, .matrix-table, .matrix-note,
+    .template-code, .preview-box {
+      background: #25283c;
+    }
+
+    .content, .deep-workspace .content {
+      background: transparent;
+    }
+
+    h1, h2, h3, h4, b, strong, .crumb, .screen-title, .metric b,
+    .template-item b, .shot-info b, .next-step b {
+      color: var(--ink);
+    }
+
+    p, span, small, td, .route, .intro p, .principle span, .field span,
+    .metric span, .call-item span, .template-item span, .matrix-note p,
+    .project-meta, .next-step {
+      color: var(--muted);
+    }
+
+    .eyebrow, .template-token, .variable b, .matrix-tag.var,
+    .mini-flow span.active + span, .project-row-head {
+      color: var(--teal);
+    }
+
+    table, th, td {
+      border-color: #363a55;
+    }
+
+    th, .matrix-table th {
+      background: #202337;
+      color: #aeb8ce;
+    }
+
+    .matrix-table td, .template-code {
+      color: #d7deef;
+    }
+
+    input, textarea, select {
+      background: #1f2235;
+      border-color: #3b405d;
+      color: var(--ink);
+    }
+
+    .bar, .mini-flow span.done {
+      background: linear-gradient(180deg, #95f044, #65f785);
+    }
+
+    .bar:nth-child(2n), .kpi-line i, .clip.alt {
+      background: linear-gradient(90deg, #ffbd45, #ff8c35);
+    }
+
+    .bar:nth-child(3n), .clip {
+      background: linear-gradient(90deg, #8ad9ff, #95f044);
+    }
+
+    .kpi-line, .mini-flow span {
+      background: #363a55;
+    }
+
+    .thumb, .scene-thumb, .character-thumb, .shot-preview, .video-stage,
+    .poster-preview, .asset-preview, .story-frame, .cover-art {
+      border-color: #39405f;
+      background:
+        linear-gradient(115deg, transparent 0 38%, rgba(255,255,255,.16) 39% 40%, transparent 41% 100%),
+        linear-gradient(150deg, #202337, #315063 48%, #ff704e);
+    }
+
+    .thumb.blue, .character-thumb.blue, .scene-thumb.blue {
+      background: linear-gradient(135deg, #293554, #35aee2 52%, #95f044);
+    }
+
+    .thumb.coral, .character-thumb.coral, .scene-thumb.coral {
+      background: linear-gradient(135deg, #372336, #ff624f 52%, #ffbd45);
+    }
+
+    .preview-overlay, .shot-overlay, .video-caption {
+      background: rgba(20, 23, 38, .82);
+      color: #f3f6ff;
+    }
+
+    .app button:not(.primary),
+    .app .production-step,
+    .app .wizard-card,
+    .app .wizard-footer,
+    .app .text-lines,
+    .app .next-action,
+    .app .source-choice,
+    .app .source-card,
+    .app .source-tree,
+    .app .source-node,
+    .app .input-panel,
+    .app .paste-box,
+    .app .profile-card,
+    .app .profile-resolution,
+    .app .profile-hero,
+    .app .analysis-hero,
+    .app .analysis-folder,
+    .app .analysis-child,
+    .app .analysis-output,
+    .app .analysis-editor,
+    .app .analysis-block,
+    .app .confirm-list,
+    .app .confirm-checks,
+    .app .asset-ai-edit,
+    .app .script-list,
+    .app .script-page,
+    .app .script-review,
+    .app .script-scene-card,
+    .app .asset-script-tree,
+    .app .asset-tabs,
+    .app .asset-editor,
+    .app .asset-review,
+    .app .asset-list-card,
+    .app .story-list,
+    .app .nineboard-editor,
+    .app .generation-queue,
+    .app .generation-shot,
+    .app .generation-shot-card,
+    .app .confirmation-shot-card,
+    .app .confirmation-node,
+    .app .preview-node,
+    .app .preview-list,
+    .app .preview-list-item,
+    .app .library-row-card,
+    .app .lineage-step,
+    .app .node-row,
+    .app .episode,
+    .app .scene,
+    .app .shot,
+    .app .shot-node,
+    .app .task-node,
+    .app .clip-node,
+    .app .field,
+    .app textarea,
+    .app input,
+    .app select {
+      background: var(--surface-2);
+      border-color: #3b405d;
+      color: var(--ink);
+    }
+
+    .app .production-step i,
+    .app .wizard-step span,
+    .app .progress-mini,
+    .app .mini-step span {
+      background: #39405d;
+      color: #cbd4e9;
+    }
+
+    .app .production-step.done,
+    .app .source-node.done,
+    .app .episode.done,
+    .app .scene.done,
+    .app .shot-node.done {
+      background: var(--green-soft);
+      border-color: rgba(101, 247, 133, .48);
+      color: #b8ffc6;
+    }
+
+    .app .production-step.done i,
+    .app .mini-step.done span {
+      background: var(--green);
+      color: #101523;
+    }
+
+    .app .production-step.current,
+    .app .source-card.active,
+    .app .source-node.active,
+    .app .analysis-child.active,
+    .app .episode.active,
+    .app .scene.active,
+    .app .generation-shot.active,
+    .app .confirmation-shot-card.active,
+    .app .preview-list-item.active,
+    .app .active {
+      background: var(--teal-soft);
+      border-color: rgba(149, 240, 68, .55);
+      color: var(--ink);
+      box-shadow: inset 3px 0 0 var(--teal);
+    }
+
+    .app .production-step.current i,
+    .app .current i,
+    .app .current span {
+      background: var(--teal);
+      color: #101523;
+    }
+
+    .app .template-pill.ok,
+    .app .matrix-tag.var {
+      background: var(--green-soft);
+      color: #a9ffbb;
+    }
+
+    .app .template-pill,
+    .app .matrix-tag {
+      background: #30344d;
+      color: #cfd7ea;
+    }
+
+    .app .template-pill.wait,
+    .app .source-node.warn,
+    .app .prompt.negative {
+      background: var(--amber-soft);
+      border-color: rgba(255, 189, 69, .44);
+      color: #ffd384;
+    }
+
+    .app .asset-ai-edit textarea,
+    .app textarea {
+      background: #1f2235;
+      color: #e7edfb;
+    }
+
+    .app .analysis-workspace .confirm-list .analysis-folder,
+    .app .analysis-workspace .confirm-list .analysis-output,
+    .app .analysis-drawer,
+    .app .hierarchy-tree,
+    .app .tree-node,
+    .app .tree-node.scene,
+    .app .tree-node.shot,
+    .app .chapter-chip,
+    .app .version,
+    .app .script-scope-note,
+    .app .prompt,
+    .app .storyboard-image-sheet,
+    .app .material-folder,
+    .app .material-clip,
+    .app .assembly-board,
+    .app .assembly-drop,
+    .app .assembly-item,
+    .app .track,
+    .app .preview-inspector,
+    .app .preview-player,
+    .app .preview-stage,
+    .app .shot span,
+    .app .shot-node span,
+    .app .source-progress span,
+    .app .wizard-progress span {
+      background: var(--surface-2);
+      border-color: #3b405d;
+      color: var(--ink);
+    }
+
+    .app .tree-node.active,
+    .app .tree-node.scene.active,
+    .app .tree-node.shot.active,
+    .app .chapter-chip.active {
+      background: var(--teal-soft);
+      border-color: rgba(149, 240, 68, .55);
+      box-shadow: inset 3px 0 0 var(--teal);
+    }
+
+    .app .tree-node.done,
+    .app .source-node.confirmed {
+      background: var(--green-soft);
+      border-color: rgba(101, 247, 133, .48);
+    }
+
+    .app .tree-node.wait {
+      background: var(--amber-soft);
+      border-color: rgba(255, 189, 69, .44);
+    }
+
+    .app .source-progress span.current,
+    .app .wizard-progress span.current {
+      background: var(--teal);
+      color: #101523;
+    }
+
+    .app .storyboard-workspace .nineboard-editor,
+    .app .storyboard-workspace .storyboard-image-sheet,
+    .app .storyboard-workspace .prompt.negative,
+    .app .storyboard-workspace button:not(.primary),
+    .app .generation-detail,
+    .app .confirmation-tree,
+    .app .confirmation-drawer,
+    .app .preview-tree,
+    .app .preview-workspace .tracks,
+    .app .preview-drawer,
+    .app .task-scope,
+    .app .task-main,
+    .app .task-filter-bar,
+    .app .task-log {
+      background: var(--surface-2);
+      border-color: #3b405d;
+      color: var(--ink);
+    }
+
+    .app .preview-tree .preview-node,
+    .app .preview-tree .preview-node.scene,
+    .app .preview-tree .preview-node.episode,
+    .app .confirmation-tree .confirmation-node,
+    .app .generation-queue .generation-shot,
+    .app .generation-detail button:not(.primary),
+    .app .confirmation-drawer button:not(.primary),
+    .app .preview-drawer button:not(.primary),
+    .app .task-filter-bar button:not(.primary),
+    .app .task-main button:not(.primary) {
+      background: #30344d;
+      border-color: #454b69;
+      color: var(--ink);
+    }
+
+    .app .source-flow span,
+    .app .content .nineboard-editor,
+    .app .content .storyboard-image-sheet,
+    .app .content .prompt.negative,
+    .app .content .tracks,
+    .app .content .list,
+    .app .content .storyboard-action-row button:not(.primary),
+    .app .content .nineboard-editor button:not(.primary) {
+      background: var(--surface-2);
+      border-color: #3b405d;
+      color: var(--ink);
+    }
+
+    .app .source-flow span.current {
+      background: var(--teal);
+      color: #101523;
+    }
+
+    .screen .nineboard-editor,
+    .screen .storyboard-image-sheet,
+    .screen .prompt.negative,
+    .screen .nineboard-editor button:not(.primary) {
+      background: var(--surface-2);
+      border-color: #3b405d;
+      color: var(--ink);
+    }
+
+    .screen .storyboard-image-preview i {
+      border-color: #404763;
+      background:
+        radial-gradient(circle at 72% 26%, rgba(149,240,68,.28) 0 8px, transparent 9px),
+        linear-gradient(145deg, #24273b, #374a5f 48%, #ffbd45);
+    }
+
+    .summary-list {
+      gap: 7px;
+    }
+
+    .summary-item {
+      border: 1px solid #3b405d;
+      border-radius: 6px;
+      background: #292d44;
+      padding: 8px;
+    }
+
+    .summary-item + .summary-item {
+      border-top-color: #3b405d;
+    }
+
+    .summary-item span {
+      color: #9aa3b7;
+    }
+
+    .summary-item b {
+      color: #f3f6ff;
+    }
+
+    .wizard-form > .right-panel {
+      border-color: #343851;
+      box-shadow: none;
+    }
+
+    /* Unified dark control language: active state is a signal, not a filled block. */
+    .nav div,
+    .phase,
+    button,
+    .btn,
+    .chip,
+    .task-filter-chip,
+    .production-step,
+    .source-card,
+    .source-node,
+    .tree-node,
+    .analysis-child,
+    .analysis-folder,
+    .episode,
+    .scene,
+    .shot-node,
+    .generation-shot,
+    .confirmation-node,
+    .preview-node,
+    .template-item,
+    .library-tree button,
+    .task-scope-item {
+      background: rgba(47, 52, 77, .72);
+      border: 1px solid rgba(78, 85, 119, .72);
+      color: #c7d0e4;
+      box-shadow: none;
+    }
+
+    .nav div {
+      position: relative;
+      border-color: transparent;
+      background: transparent;
+      padding: 7px 8px 7px 10px;
+      border-radius: 4px;
+      font-weight: 700;
+    }
+
+    .nav div:hover,
+    button:not(.primary):hover,
+    .btn:not(.primary):hover,
+    .phase:hover,
+    .production-step:hover,
+    .source-card:hover {
+      background: rgba(60, 66, 96, .72);
+      border-color: rgba(149, 240, 68, .32);
+      color: #eef4ff;
+    }
+
+    .nav .active,
+    .phase.active,
+    .step.current,
+    .list-item.active,
+    .library-tree button.active,
+    .template-item.active,
+    .wizard-step.current,
+    .task-row.active,
+    .app .production-step.current,
+    .app .source-card.active,
+    .app .source-node.active,
+    .app .analysis-child.active,
+    .app .episode.active,
+    .app .scene.active,
+    .app .generation-shot.active,
+    .app .confirmation-shot-card.active,
+    .app .confirmation-node.active,
+    .app .preview-node.active,
+    .app .preview-list-item.active,
+    .app .task-scope-item.active,
+    .app .tree-node.active,
+    .app .chapter-chip.active,
+    .app .active {
+      background:
+        linear-gradient(90deg, rgba(149, 240, 68, .16), rgba(149, 240, 68, .035) 42%, rgba(47, 52, 77, .76));
+      border-color: rgba(149, 240, 68, .58);
+      color: #f3f6ff;
+      box-shadow: inset 2px 0 0 var(--teal);
+    }
+
+    .nav .active {
+      border-color: rgba(149, 240, 68, .38);
+      color: #f3f6ff;
+      font-weight: 900;
+    }
+
+    .nav .active::before {
+      content: "";
+      position: absolute;
+      left: 5px;
+      top: 50%;
+      width: 4px;
+      height: 4px;
+      border-radius: 999px;
+      background: var(--teal);
+      transform: translateY(-50%);
+      box-shadow: 0 0 8px rgba(149, 240, 68, .65);
+    }
+
+    button,
+    .btn {
+      border-radius: 5px;
+      background: #2d324a;
+      border-color: #464d6c;
+      color: #e0e7f5;
+      min-height: 28px;
+    }
+
+    .primary {
+      background: linear-gradient(135deg, #95f044, #70df78);
+      border-color: #a1f65a;
+      color: #121827;
+      box-shadow: 0 0 0 1px rgba(149, 240, 68, .12), 0 8px 18px rgba(39, 64, 28, .28);
+    }
+
+    .primary:hover {
+      background: linear-gradient(135deg, #a8ff5f, #7ff286);
+      border-color: #b5ff73;
+      color: #101523;
+    }
+
+    .phase.active,
+    .task-filter-chip.active,
+    .generation-filter button.active,
+    .settings-tabs .phase.active,
+    .model-toolbar .phase.active,
+    .prompt-filter .phase.active {
+      background: rgba(39, 43, 64, .9);
+      border-color: rgba(82, 89, 124, .82);
+      color: #f3f6ff;
+      box-shadow: none;
+      position: relative;
+      padding-left: 14px;
+    }
+
+    .phase.active::before,
+    .task-filter-chip.active::before,
+    .generation-filter button.active::before,
+    .settings-tabs .phase.active::before,
+    .model-toolbar .phase.active::before,
+    .prompt-filter .phase.active::before {
+      content: "";
+      position: absolute;
+      left: 6px;
+      top: 50%;
+      width: 4px;
+      height: 4px;
+      border-radius: 999px;
+      background: var(--teal);
+      transform: translateY(-50%);
+      box-shadow: 0 0 7px rgba(149, 240, 68, .55);
+    }
+
+    .production-step i,
+    .app .production-step i {
+      background: #38405e;
+      color: #cbd4e9;
+      border: 1px solid rgba(255,255,255,.08);
+    }
+
+    .production-step.current i,
+    .app .production-step.current i,
+    .app .current i {
+      background: var(--teal);
+      border-color: var(--teal);
+      color: #101523;
+    }
+
+    .profile-card,
+    .app .profile-card,
+    .profile-card.user-intent,
+    .profile-card.ai-suggested {
+      background: #25283c;
+      border-color: #3b405d;
+      box-shadow: none;
+    }
+
+    .profile-card.user-intent {
+      box-shadow: inset 2px 0 0 rgba(255, 189, 69, .78);
+    }
+
+    .profile-card.ai-suggested {
+      box-shadow: inset 2px 0 0 rgba(149, 240, 68, .62);
+    }
+
+    .profile-card .field,
+    .profile-card .field.editable,
+    .asset-fields .field.editable,
+    .analysis-block.editable {
+      background: #2b3048;
+      border: 1px solid #454b69;
+      border-radius: 6px;
+      color: var(--ink);
+      box-shadow: none;
+    }
+
+    .profile-card .field.editable,
+    .asset-fields .field.editable,
+    .analysis-block.editable {
+      border-style: dashed;
+      border-color: rgba(154, 164, 202, .58);
+    }
+
+    .profile-card .field.editable span::after {
+      content: " · 可编辑";
+      color: #9aa3b7;
+      font-weight: 800;
+    }
+
+    .profile-card .field span,
+    .asset-fields .field.editable span {
+      color: #9aa3b7;
+    }
+
+    .profile-card .field b,
+    .asset-fields .field.editable b,
+    .analysis-block.editable {
+      color: #f3f6ff;
+    }
+
+    .profile-card .field b[contenteditable="true"] {
+      background: #202337;
+      outline: 1px solid rgba(149, 240, 68, .45);
+      color: #f3f6ff;
+    }
+
+    .profile-confirm.editing .profile-card.ai-suggested,
+    .profile-confirm.editing .profile-card.user-intent {
+      background: #292d44;
+    }
+
+    .profile-resolution {
+      background: #292d44;
+      border-color: rgba(255, 189, 69, .35);
     }
   </style>
 </head>
