@@ -26,7 +26,7 @@
 ## 2. 核心实体分层
 
 ```text
-组织与用户层
+用户与访问控制层
 ├─ users
 └─ project_members
 
@@ -174,6 +174,19 @@ erDiagram
 | export_video | 导出视频 |
 | document | 文档 |
 
+### 4.7 account_type
+| 值 | 说明 |
+|---|---|
+| creator | 内容创作者账号，可创建项目并使用 AI 生产工作台 |
+| admin | 平台管理员账号，用于模型、存储、队列、模板和系统配置 |
+
+### 4.8 project_access_level
+| 值 | 说明 |
+|---|---|
+| owner | 项目拥有者，可编辑、发起生成、确认版本、删除资产和查看成本 |
+| editor | 项目编辑者，可编辑内容、发起生成和确认正式版本 |
+| viewer | 项目查看者，只读查看项目、资产、结果和成本 |
+
 ---
 
 ## 5. 表结构设计
@@ -185,7 +198,7 @@ erDiagram
 | name | varchar(100) | not null | 用户名称 |
 | email | varchar(255) | unique | 邮箱 |
 | avatar_url | text |  | 头像 |
-| role | varchar(50) | not null default 'member' | 全局角色 |
+| account_type | varchar(50) | not null default 'creator' | 账号类型：creator/admin |
 | created_at | timestamptz | not null | 创建时间 |
 | updated_at | timestamptz | not null | 更新时间 |
 
@@ -215,7 +228,7 @@ erDiagram
 | id | uuid | PK | 记录 ID |
 | project_id | uuid | FK projects.id | 项目 |
 | user_id | uuid | FK users.id | 用户 |
-| role | varchar(50) | not null | owner/editor/reviewer/viewer |
+| access_level | varchar(50) | not null | owner/editor/viewer |
 | created_at | timestamptz | not null | 加入时间 |
 
 唯一约束：`unique(project_id, user_id)`。

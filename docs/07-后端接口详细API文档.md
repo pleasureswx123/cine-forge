@@ -10,6 +10,10 @@
 
 ## 1. 通用规范
 
+### 1.0 命名约定
+
+API 请求和响应字段统一使用 `camelCase`，数据库字段统一使用 `snake_case`。后端需要在 DTO / Serializer 层完成转换，避免前端直接感知数据库命名。
+
 ### 1.1 通用响应
 ```json
 {
@@ -570,12 +574,67 @@ POST   /api/v1/voices/{cardId}/confirm
 ## 12. 任务中心 API
 
 ### 12.1 全局任务列表
-`GET /api/v1/tasks?projectId=&status=&taskType=&page=&pageSize=`
+`GET /api/v1/tasks?projectId=&status=&taskType=&provider=&ownerId=&failureReason=&createdFrom=&createdTo=&sort=&page=&pageSize=`
 
-### 12.2 任务日志
+响应字段建议包含：
+```json
+{
+  "items": [
+    {
+      "taskId": "task_uuid",
+      "taskName": "SH-014 视频候选 B",
+      "projectId": "project_uuid",
+      "projectName": "诡城雨夜",
+      "taskType": "video_generation",
+      "provider": "kling",
+      "modelName": "Kling 2.1",
+      "status": "running",
+      "progress": 68,
+      "priority": "P0",
+      "ownerName": "镜头组",
+      "sourcePath": "E01 / SC-04 / SH-014",
+      "elapsedSeconds": 134,
+      "etaSeconds": 80,
+      "cost": 3.82,
+      "retryCount": 0,
+      "failureReason": null,
+      "createdAt": "2026-06-04T11:23:18+08:00"
+    }
+  ],
+  "pagination": {
+    "page": 1,
+    "pageSize": 20,
+    "total": 42
+  }
+}
+```
+
+### 12.2 任务总览统计
+`GET /api/v1/tasks/summary?projectId=&createdFrom=&createdTo=`
+
+响应：
+```json
+{
+  "total": 42,
+  "queued": 21,
+  "running": 14,
+  "failed": 3,
+  "completedToday": 18,
+  "highCost": 5,
+  "estimatedQueueWaitSeconds": 660,
+  "todayCost": 5.52
+}
+```
+
+### 12.3 任务日志
 `GET /api/v1/tasks/{taskId}/logs`
 
-### 12.3 任务状态轮询
+### 12.4 任务详情
+`GET /api/v1/tasks/{taskId}`
+
+返回任务基础信息、输入来源、请求参数、运行状态、错误摘要、产物入口和重试历史。
+
+### 12.5 任务状态轮询
 `GET /api/v1/tasks/{taskId}/status`
 
 响应：
@@ -586,6 +645,72 @@ POST   /api/v1/voices/{cardId}/confirm
   "progress": 45,
   "message": "正在调用视频模型",
   "resultCount": 0
+}
+```
+
+### 12.6 失败原因聚合
+`GET /api/v1/tasks/failure-groups?projectId=&taskType=&createdFrom=&createdTo=`
+
+响应：
+```json
+{
+  "groups": [
+    {
+      "reasonCode": "reference_asset_unavailable",
+      "reasonName": "参考素材不可访问",
+      "count": 1,
+      "retryable": false,
+      "suggestion": "修复素材 URL 或重新上传参考图后再重试"
+    }
+  ]
+}
+```
+
+### 12.7 批量重试
+`POST /api/v1/tasks/batch-retry`
+
+请求：
+```json
+{
+  "taskIds": ["task_uuid"],
+  "failureReason": "provider_timeout",
+  "onlyRetryable": true,
+  "maxRetryCount": 2
+}
+```
+
+### 12.8 批量取消
+`POST /api/v1/tasks/batch-cancel`
+
+请求：
+```json
+{
+  "taskIds": ["task_uuid"],
+  "reason": "用户取消排队任务"
+}
+```
+
+### 12.9 队列暂停 / 恢复
+`POST /api/v1/task-queues/{queueType}/pause`
+
+`POST /api/v1/task-queues/{queueType}/resume`
+
+请求：
+```json
+{
+  "projectId": "project_uuid",
+  "scope": "video_generation",
+  "reason": "视频队列压力过高，暂停低优先级任务"
+}
+```
+
+### 12.10 调整任务优先级
+`PATCH /api/v1/tasks/{taskId}/priority`
+
+请求：
+```json
+{
+  "priority": "P0"
 }
 ```
 
@@ -665,16 +790,20 @@ POST   /api/v1/voices/{cardId}/confirm
 
 ---
 
-## 16. 权限建议
+## 16. 访问控制建议
 
-| 操作 | owner | editor | reviewer | viewer |
-|---|---|---|---|---|
-| 查看项目 | 是 | 是 | 是 | 是 |
-| 编辑文本/剧本/资产 | 是 | 是 | 否 | 否 |
-| 发起生成任务 | 是 | 是 | 否 | 否 |
-| 审核通过 | 是 | 是 | 是 | 否 |
-| 删除资产 | 是 | 否 | 否 | 否 |
-| 模型配置 | 是 | 否 | 否 | 否 |
+第一阶段不按传统内容生产岗位拆分权限。系统只保留项目访问级别，用于保护项目内容、模型密钥和关键操作。
+
+| 操作 | owner | editor | viewer |
+|---|---|---|---|
+| 查看项目 | 是 | 是 | 是 |
+| 编辑文本/剧本/资产 | 是 | 是 | 否 |
+| 发起生成任务 | 是 | 是 | 否 |
+| 确认正式版本 | 是 | 是 | 否 |
+| 删除资产 | 是 | 否 | 否 |
+| 项目成本查看 | 是 | 是 | 是 |
+
+模型配置、供应商密钥、任务队列和存储策略由平台管理员维护，不进入项目成员访问级别。
 
 ---
 
@@ -687,4 +816,4 @@ POST   /api/v1/voices/{cardId}/confirm
 成本统计、模型测试、提示词模板、批量生成、版本对比、任务日志。
 
 ### P2 后续
-复杂权限、通知、WebSocket 实时推送、资产复用推荐、工作流模板。
+轻量协作权限、通知、WebSocket 实时推送、资产复用推荐、工作流模板。
